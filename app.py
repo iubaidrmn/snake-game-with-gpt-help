@@ -45,10 +45,15 @@ def generate_food(snake):
 
 # Render the board
 def render_board(snake, food):
-    board = np.zeros((BOARD_SIZE, BOARD_SIZE))
+    board = np.zeros((BOARD_SIZE, BOARD_SIZE, 3), dtype=np.uint8)  # Create a 3-channel board (RGB)
+    
+    # Set snake color to white
     for segment in snake:
-        board[segment] = 1
-    board[food] = 2
+        board[segment] = [255, 255, 255]  # White color for snake
+    
+    # Set food color to red
+    board[food] = [255, 0, 0]  # Red color for food
+    
     return board
 
 # Game loop
@@ -95,6 +100,8 @@ while True:
     # Render the board
     board = render_board(snake, food)
     score_display.text(f"Score: {len(snake) - 1}")
+    
+    # Scale the board to a larger image for better visibility
     board_display.image(board, width=300)
 
     # Control game speed
